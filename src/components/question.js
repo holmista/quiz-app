@@ -4,21 +4,12 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { makeStyles } from '@material-ui/core/styles';
 
 import('./questions.css')
 
-const useStyles = makeStyles((theme) => ({
-  radio: {
-    '&$checked': {
-      color: '#4B8DF8'
-    }
-  },
-  checked: {}
-  }));
+
 
 export default function Question({body, answers}) {
-  const classes = useStyles();
   const [value, setValue] = React.useState('');
 
   const handleChange = (event) => {
@@ -26,7 +17,6 @@ export default function Question({body, answers}) {
   };
 
   const checkAnswer = (e)=>{
-    console.log(e.target.value)
     if(e.target.value==4){
       let currCorrects = parseInt(sessionStorage.getItem('correct'))+1
       sessionStorage.setItem('correct', currCorrects)

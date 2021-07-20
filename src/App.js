@@ -2,9 +2,7 @@ import './App.css';
 import Questions from './components/questions';
 import DropDownDifficulty from './components/dropDownDifficulty';
 import Score from './components/score';
-import {useState, createContext} from 'react'
-import axios from 'axios';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 function App() {
   
   const getdData = (values)=>{
