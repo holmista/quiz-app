@@ -4,6 +4,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router-dom'
 import('./questions.css')
 
 const useStyles = makeStyles((theme) => ({
@@ -14,15 +15,21 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Questions({specs}) {
+export default function Questions() {
+    const[nan, setnan] = useState(false)
     const classes = useStyles();
     sessionStorage.setItem('correct', 0)
     const category = parseInt(sessionStorage.getItem('category'))
     const difficulty = sessionStorage.getItem('difficulty')
+
     const[data, setData] = useState([])
     useEffect(()=>fetchData(), [])
     
     const fetchData = async()=>{
+        if(isNaN(category)){
+            
+            setnan(true)
+        }
         if(sessionStorage.getItem('token')){
             let token = sessionStorage.getItem('token')
             let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986&token=${token}`
@@ -50,7 +57,11 @@ export default function Questions({specs}) {
         
     }
     
+    if(nan){
+        return <Redirect to='/'/>
+    }
 
+    
     return (
         <div className='parent'>
             {data.map(({question, correct_answer, incorrect_answers})=>{
