@@ -25,7 +25,7 @@ export default function Questions({specs}) {
     const fetchData = async()=>{
         if(sessionStorage.getItem('token')){
             let token = sessionStorage.getItem('token')
-            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64&token=${token}`
+            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986&token=${token}`
             const res = await axios.get(url)
             console.log(res)
             if(res.data.response_code===4){
@@ -38,7 +38,7 @@ export default function Questions({specs}) {
             console.log(data)
             setData(data)
         }else{
-            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`
+            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986`
             let token = await axios.get('https://opentdb.com/api_token.php?command=request')
             console.log(token)
             sessionStorage.setItem('token', token.data.token)
@@ -54,11 +54,11 @@ export default function Questions({specs}) {
     return (
         <div className='parent'>
             {data.map(({question, correct_answer, incorrect_answers})=>{
-                let Dquestion = atob(question)
-                let Dcorrect_answer = atob(correct_answer)
+                let Dquestion = decodeURIComponent(question)
+                let Dcorrect_answer = decodeURIComponent(correct_answer)
                 let answers = [{answer:Dcorrect_answer, correct:4}]
                 for(let i of incorrect_answers){
-                    answers.push({answer:atob(i), correct:incorrect_answers.indexOf(i)})
+                    answers.push({answer:decodeURIComponent(i), correct:incorrect_answers.indexOf(i)})
                 }
                 let shuffled_answers = _.shuffle(answers);
                 return <Question key={question} body={Dquestion} answers={shuffled_answers}/>

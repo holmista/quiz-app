@@ -26,7 +26,7 @@ export default function Question({body, answers}) {
   return (
     <div className='questionParent'>
     <FormControl component="fieldset">
-      <FormLabel component="legend">{body}</FormLabel>
+      <FormLabel component="legend"><p className='body'>{body}</p></FormLabel>
       <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
         <FormControlLabel className="correctLabel" value={`${answers[0].correct}`} control={<Radio />} label={answers[0].answer} onClick = {checkAnswer}/>
         <FormControlLabel className="correctLabel" value={`${answers[1].correct}`} control={<Radio />} label={answers[1].answer} onClick = {checkAnswer}/>

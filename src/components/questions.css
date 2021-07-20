@@ -3,7 +3,7 @@
     justify-content: center;
 }
 .questionParent{
-    width: 500px;
+    width: 26vw;
 
     margin: 0 auto;
     margin-top: 70px;
@@ -11,5 +11,5 @@
 .correctLabel{
     display: flex;
     justify-content: flex-start;
-    width: 500px;
+    width: 26vw;
 }
