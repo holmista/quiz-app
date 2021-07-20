@@ -1,4 +1,4 @@
-import {useEffect, useState, useContext} from 'react'
+import {useEffect, useState} from 'react'
 import Question from './question'
 import axios from 'axios'
 import _ from 'lodash'
@@ -20,13 +20,12 @@ export default function Questions({specs}) {
     const category = parseInt(sessionStorage.getItem('category'))
     const difficulty = sessionStorage.getItem('difficulty')
     const[data, setData] = useState([])
-    const[score, setScore] = useState(0)
     useEffect(()=>fetchData(), [])
     
     const fetchData = async()=>{
         if(sessionStorage.getItem('token')){
             let token = sessionStorage.getItem('token')
-            var url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64&token=${token}`
+            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64&token=${token}`
             const res = await axios.get(url)
             console.log(res)
             if(res.data.response_code===4){
@@ -39,7 +38,7 @@ export default function Questions({specs}) {
             console.log(data)
             setData(data)
         }else{
-            var url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`
+            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`
             let token = await axios.get('https://opentdb.com/api_token.php?command=request')
             console.log(token)
             sessionStorage.setItem('token', token.data.token)
