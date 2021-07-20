@@ -1,0 +1,15 @@
+.parent{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.button{
+    height: 40px;
+    max-width: 150px;
+    margin: 0 auto;
+}
+.dropdowns{
+    display: flex;
+    justify-content: center;
+}
