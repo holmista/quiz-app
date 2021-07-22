@@ -125,7 +125,7 @@ export default function Questions() {
                     pathname: '/score', 
                     state: { from: pathname } // or any property you like to add
                 }}>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" className="marginBottom">
                     Reveal Score
                 </Button>
                 </Link>

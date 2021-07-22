@@ -76,7 +76,7 @@ export default function DropDownDifficulty({sendData}) {
   return (
     <div className='parent'>
       <div className='dropdowns'>
-        <div>
+        <div >
           <FormControl className={classes.formControl}>
             <InputLabel id="demo-controlled-open-select-label">category</InputLabel>
             <Select id='categories'
@@ -95,6 +95,8 @@ export default function DropDownDifficulty({sendData}) {
             </Select>
           </FormControl>
         </div>
+
+
         <div>
           <FormControl className={classes.formControl}>
             <InputLabel id="demo-controlled-open-select-label">difficulty</InputLabel>
@@ -115,9 +117,8 @@ export default function DropDownDifficulty({sendData}) {
           </FormControl>
         </div>
       </div>
+
       <div>
-        
-        
         <Button disabled={buttonDisabled} className='button' variant="contained" color="primary" onClick={()=>sendData([category, Difficulty, history])}>
             Start Quiz
         </Button>
