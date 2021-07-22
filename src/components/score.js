@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {Redirect} from 'react-router-dom'
+import {Redirect, useHistory, useLocation} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Score() {
+export default function Score(props) {
+    const history = useHistory()
+    const location = useLocation()
     const[nan, setnan] = useState(false)
     const category = parseInt(sessionStorage.getItem('category'))
     useEffect(()=>{
@@ -20,15 +22,17 @@ export default function Score() {
         }
     },[])
     const classes = useStyles();
-
-    if(nan){
+    const goBack = ()=>{
+        history.goBack()
+    }
+    if(!location.state){
         return <Redirect to='/'/>
     }
     return (
         <div>
             {`you scored ${sessionStorage.getItem('correct')}/10`}
             <div className={classes.root}>
-                <Button href='/quiz' variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={goBack}>
                     answer questions from same category
                 </Button>
                 <Button href='/' variant="contained" color="secondary">

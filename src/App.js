@@ -2,12 +2,18 @@ import './App.css';
 import Questions from './components/questions';
 import DropDownDifficulty from './components/dropDownDifficulty';
 import Score from './components/score';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Redirect, Route,useHistory} from 'react-router-dom'
+import {useRef, createContext, useState} from 'react'
+export const Context = createContext()
 function App() {
   
+  const[value, setValue] = useState([])
+
+  
   const getdData = (values)=>{
-    sessionStorage.setItem('category',`${values[0]}`)
-    sessionStorage.setItem('difficulty', `${values[1]}`)
+    
+    //setValue([values[0],values[1]])
+    values[2].push(`/${values[0]}/${values[1]}`)
   }
   return (
     <div className="App">
@@ -15,8 +21,13 @@ function App() {
         <Route exact path='/'>
           <DropDownDifficulty sendData={getdData}/>
         </Route>
-          <Route exact path = '/quiz'>
-            <Questions/>
+          {/* <Route exact path = '/quiz' >
+            <Context.Provider value={value}>
+              <Questions />
+            </Context.Provider>
+          </Route> */}
+          <Route exact path = '/:category/:difficulty'>
+            <Questions />
           </Route>
           <Route exact path = '/score'>
             <Score/>

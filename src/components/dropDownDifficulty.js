@@ -7,6 +7,8 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import './DropDowns.css'
+import { useHistory } from 'react-router';
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DropDownDifficulty({sendData}) {
+  const history=useHistory()
   React.useEffect(()=>fetchCategories(), [])
   const fetchCategories = async()=>{
     const data = await axios.get('https://opentdb.com/api_category.php')
@@ -114,10 +117,8 @@ export default function DropDownDifficulty({sendData}) {
       </div>
       <div>
         
-        {/* <Button  disabled={buttonDisabled} className='button' variant="contained" color="primary" onClick={()=>sendData([category, Difficulty])}>
-            Start Quiz
-        </Button> */}
-        <Button href='/quiz' disabled={buttonDisabled} className='button' variant="contained" color="primary" onClick={()=>sendData([category, Difficulty])}>
+        
+        <Button disabled={buttonDisabled} className='button' variant="contained" color="primary" onClick={()=>sendData([category, Difficulty, history])}>
             Start Quiz
         </Button>
       </div>
