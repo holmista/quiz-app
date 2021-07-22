@@ -4,14 +4,12 @@ import axios from 'axios'
 import _ from 'lodash'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+
 import {Redirect, useRouteMatch as useMatch, useHistory, Link, useLocation} from 'react-router-dom'
 import {useContext,useReducer } from 'react'
 import { Context } from '../App';
 import {reducer} from '../utils/reducer'
 import Loading from './loading'
-
-
-
 import('./questions.css')
 
 
@@ -33,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
+
 export default function Questions() {
     const { pathname } = useLocation();
     const match = useMatch()
@@ -40,6 +39,8 @@ export default function Questions() {
     console.log(useHistory())
     const [state, dispatch] = useReducer(reducer, initialState);
     //const specs = useContext(Context)
+
+
 
 
     const[nan, setnan] = useState(false)
@@ -60,7 +61,6 @@ export default function Questions() {
         //     return
         // }
         
-
         if(sessionStorage.getItem('token')){
             dispatch({type: 'fetchDataStart'})
             let token = sessionStorage.getItem('token')
@@ -134,7 +134,8 @@ export default function Questions() {
         </div>
     )
 
-    
 }
+
+
 
 

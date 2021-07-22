@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+
 import {Redirect, useHistory, useLocation} from 'react-router-dom'
+
+
 import { useState, useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,9 +14,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+
 export default function Score(props) {
     const history = useHistory()
     const location = useLocation()
+
     const[nan, setnan] = useState(false)
     const category = parseInt(sessionStorage.getItem('category'))
     useEffect(()=>{
@@ -22,10 +27,12 @@ export default function Score(props) {
         }
     },[])
     const classes = useStyles();
+
     const goBack = ()=>{
         history.goBack()
     }
     if(!location.state){
+
         return <Redirect to='/'/>
     }
     return (
