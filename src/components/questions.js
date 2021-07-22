@@ -9,6 +9,9 @@ import {useContext,useReducer } from 'react'
 import { Context } from '../App';
 import {reducer} from '../utils/reducer'
 import Loading from './loading'
+
+
+
 import('./questions.css')
 
 
@@ -29,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+
 export default function Questions() {
     const { pathname } = useLocation();
     const match = useMatch()
@@ -36,6 +40,8 @@ export default function Questions() {
     console.log(useHistory())
     const [state, dispatch] = useReducer(reducer, initialState);
     //const specs = useContext(Context)
+
+
     const[nan, setnan] = useState(false)
     const classes = useStyles();
     sessionStorage.setItem('correct', 0)
@@ -47,11 +53,14 @@ export default function Questions() {
     useEffect(()=>fetchData(), [])
     
     const fetchData = async()=>{
+
         // if(specs.length===0){
         //     //dispatch({type: 'specsNotSet'})
         //     setnan(true)
         //     return
         // }
+        
+
         if(sessionStorage.getItem('token')){
             dispatch({type: 'fetchDataStart'})
             let token = sessionStorage.getItem('token')
@@ -88,6 +97,7 @@ export default function Questions() {
         
         
     }
+
     
     if(nan){
         return <div><Redirect to='/'/></div>
@@ -95,6 +105,8 @@ export default function Questions() {
     if(state.loading){
         return <Loading/>
     }
+    
+
     
     return (
         <div className='parent'>
@@ -121,5 +133,8 @@ export default function Questions() {
             
         </div>
     )
+
     
 }
+
+
