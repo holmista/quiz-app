@@ -60,37 +60,65 @@ export default function Questions() {
         //     setnan(true)
         //     return
         // }
-        
+        let res = await axios.get(`https://opentdb.com/api_count.php?category=${category}`)
+        console.log(res)
+        let diffAmount = `total_${difficulty}_question_count`
+        let questionAmount=res.data.category_question_count[diffAmount]
+        let QuestionsToFetch = 10
+        if(questionAmount<10){
+            QuestionsToFetch=questionAmount
+        }
+        console.log(QuestionsToFetch)
         if(sessionStorage.getItem('token')){
             dispatch({type: 'fetchDataStart'})
             let token = sessionStorage.getItem('token')
-            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986&token=${token}`
+            let url = `https://opentdb.com/api.php?amount=${QuestionsToFetch}&category=${category}&difficulty=${difficulty}&encode=url3986&token=${token}`
+            console.log(url)
             const res = await axios.get(url)
             console.log(res)
             if(res.data.response_code===4){
                 console.log('resetting')
                 await axios.get(`https://opentdb.com/api_token.php?command=reset&token=${sessionStorage.getItem('token')}`)
-                fetchData()
+                //fetchData()
+                const res = await axios.get(`https://opentdb.com/api.php?amount=${QuestionsToFetch}&category=${category}&difficulty=${difficulty}&encode=url3986&token=${token}`)
+                console.log(res)
+                const data = res.data.results
+                let multipleQuestionsData = data.filter(({type})=>type=='multiple')
+                let amount = multipleQuestionsData.length
+                sessionStorage.setItem('amount', amount)
+                dispatch({
+                    type: 'fetchDataSuccess',
+                    data: multipleQuestionsData
+                  })
                 return
             }
             const data = res.data.results
-            console.log(data)
+            let multipleQuestionsData = data.filter(({type})=>type=='multiple')
+            let amount = multipleQuestionsData.length
+            sessionStorage.setItem('amount', amount)
+            console.log(multipleQuestionsData)
             dispatch({
                 type: 'fetchDataSuccess',
-                data: data
+                data: multipleQuestionsData
               })
             //setData(data)
         }else{
             dispatch({type: 'fetchDataStart'})
-            let url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986`
+            
+            let url = `https://opentdb.com/api.php?amount=${QuestionsToFetch}&category=${category}&difficulty=${difficulty}&encode=url3986`
+            //console.log(url)
             let token = await axios.get('https://opentdb.com/api_token.php?command=request')
-            console.log(token)
             sessionStorage.setItem('token', token.data.token)
             const res = await axios.get(url)
+            console.log(res)
             const data = res.data.results
+            let multipleQuestionsData = data.filter(({type})=>type=='multiple')
+            let amount = multipleQuestionsData.length
+            console.log(multipleQuestionsData)
+            sessionStorage.setItem('amount', amount)
             dispatch({
                 type: 'fetchDataSuccess',
-                data: data
+                data: multipleQuestionsData
               })
             //setData(data)
         }

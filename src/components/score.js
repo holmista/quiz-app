@@ -37,7 +37,7 @@ export default function Score(props) {
     }
     return (
         <div>
-            {`you scored ${sessionStorage.getItem('correct')}/10`}
+            {`you scored ${sessionStorage.getItem('correct')}/${sessionStorage.getItem('amount')}`}
             <div className={classes.root}>
                 <Button variant="contained" color="secondary" onClick={goBack}>
                     answer questions from same category
